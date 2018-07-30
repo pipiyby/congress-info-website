@@ -1,0 +1,191 @@
+<!DOCHTML>
+<html>
+    <head>
+        <script src="dirPagination.js"></script>
+    </head>
+    <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+        <div ng-app="app" ng-controller="ctrl">
+          <ul>
+            <li class="list-group-item" ng-repeat="user in users | filter:search:strict">{{user.name}}</li>
+          </ul>
+
+          <select class="form-control" ng-model="search.name" ng-options="item.value as item.name for item in stateLists">
+          </select>
+        </div>
+        <script>
+              angular.module('app', []).controller('ctrl', function($scope) {
+              $scope.titles = [{
+                l: 'All'
+
+              }, {
+                l: 'A',
+                value: 'A'
+              }, {
+                l: 'B',
+                value: 'B'
+              }, {
+                l: 'C',
+                value: 'C'
+              }, {
+                l: 'D',
+                value: 'D'
+              }]
+              $scope.stateLists = [{name: 'All'},
+                                       {name: 'Alabama',value: 'Alabama'},
+                                       {name: 'Alaska',value: 'Alaska'},
+                                       {name: 'Arizona',value: 'Arizona'},
+                                       {name: 'Arkansas',value: 'Arkanasas'},
+                                       {name: 'California',value: 'California'},
+                                       {name: 'Colorado',value: 'Colorado'},
+                                       {name: 'Connecticut',value: 'Connecticut'},
+                                       {name: 'Delaware',value: 'Delaware'},
+                                       {name: 'District Of Columbia',value: 'District Of Columbia'},
+                                       {name: 'Florida',value: 'Florida'},
+                                       {name: 'Georgia',value: 'Georgia'},
+                                       {name: 'Hawaii',value: 'Hawaii'},
+                                       {name: 'Idaho',value: 'Idaho'},
+                                       {name: 'Illinois',value: 'Illinois'},
+                                       {name: 'Indiana',value: 'Indiana'},
+                                       {name: 'Iowa',value: 'Iowa'},
+                                       {name: 'Kansas',value: 'Kansas'},
+                                       {name: 'Kentucky',value: 'Kentucky'},
+                                       {name: 'Louisiana',value: 'Louisiana'},
+                                       {name: 'Maine',value: 'Maine'},
+                                       {name: 'Maryland',value: 'Maryland'},
+                                       {name: 'Massachusetts',value: 'Massachusetts'},
+                                       {name: 'Michigan',value: 'Michigan'},
+                                       {name: 'Minnesota',value: 'Minnesota'},
+                                       {name: 'Mississippi',value: 'Mississippi'},
+                                       {name: 'Missouri',value: 'Missouri'},
+                                       {name: 'Montana',value: 'Montana'},
+                                       {name: 'Nebraska',value: 'Nebraska'},
+                                       {name: 'Nevada',value: 'Nevada'},
+                                       {name: 'New Hampshire',value: 'New Hampshire'},
+                                       {name: 'New Jersey',value: 'New Jersy'},
+                                      ];
+              $scope.users = [{
+                name: 'Aasd'
+              }, {
+                name: 'Bsd'
+              }, {
+                name: 'Csd'
+              }, {
+                name: 'Dsd'
+              }]
+            });
+            
+            /*var myApp = angular.module('app', []);
+           
+           function MyController($scope) {
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  //$scope.stateLists = ["Alabama","Alaska","Illinois"];
+                  $scope.stateLists = [{name: 'All'},
+                                       {name: 'Alabama',value: 'Alabama'},
+                                       {name: 'Alaska',value: 'Alaska'},
+                                       {name: 'Arizona',value: 'Arizona'},
+                                       {name: 'Arkansas',value: 'Arkanasas'},
+                                       {name: 'California',value: 'California'},
+                                       {name: 'Colorado',value: 'Colorado'},
+                                       {name: 'Connecticut',value: 'Connecticut'},
+                                       {name: 'Delaware',value: 'Delaware'},
+                                       {name: 'District Of Columbia',value: 'District Of Columbia'},
+                                       {name: 'Florida',value: 'Florida'},
+                                       {name: 'Georgia',value: 'Georgia'},
+                                       {name: 'Hawaii',value: 'Hawaii'},
+                                       {name: 'Idaho',value: 'Idaho'},
+                                       {name: 'Illinois',value: 'Illinois'},
+                                       {name: 'Indiana',value: 'Indiana'},
+                                       {name: 'Iowa',value: 'Iowa'},
+                                       {name: 'Kansas',value: 'Kansas'},
+                                       {name: 'Kentucky',value: 'Kentucky'},
+                                       {name: 'Louisiana',value: 'Louisiana'},
+                                       {name: 'Maine',value: 'Maine'},
+                                       {name: 'Maryland',value: 'Maryland'},
+                                       {name: 'Massachusetts',value: 'Massachusetts'},
+                                       {name: 'Michigan',value: 'Michigan'},
+                                       {name: 'Minnesota',value: 'Minnesota'},
+                                       {name: 'Mississippi',value: 'Mississippi'},
+                                       {name: 'Missouri',value: 'Missouri'},
+                                       {name: 'Montana',value: 'Montana'},
+                                       {name: 'Nebraska',value: 'Nebraska'},
+                                       {name: 'Nevada',value: 'Nevada'},
+                                       {name: 'New Hampshire',value: 'New Hampshire'},
+                                       {name: 'New Jersey',value: 'New Jersy'},
+                                      ];   
+                  /*var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/index.php?datab=legislators&byTab=state&state=all&callback=JSON_CALLBACK';
+                  $http.jsonp(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('party')){
+                               if(d.party == "R"){
+                                   d.party = 'r.png';
+                               }
+                               else if(d.party == "D"){
+                                   d.party = 'd.png';
+                               }
+                               else{
+                                   d.party = 'N.A';
+                               }
+                          }
+                          else{
+                              d.party = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('district')){
+                               if(d.district != null){
+                                   d.district= 'District ' + d.district;
+                               }
+                               else{
+                                   d.district = 'N.A';
+                               }
+                          }
+                          else{
+                               d.district = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('state_name')){
+                               d.state_name = d.state_name;
+                           }
+                          else{
+                               d.state_name = 'N.A';
+                           }
+                      });
+                      $scope.resultList = data.results;
+                      //showData(data);
+                      //alert(Object.keys(data.results).length);
+                  }).error(function(data){
+                      alert("error");
+                  });
+                  
+                  $scope.showHouse = function(){
+                      
+                      $scope.filter = {chamber: 'house'};
+                  }
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };     
+            }
+            myApp.controller('MyController', MyController);*/
+        </script>
+    </body>
+</html>

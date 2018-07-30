@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+   <head>
+       <title>Bootstrap</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+       <!--  Bootstrap -->
+       <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+       <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+       <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>
+       <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <script src="dirPagination.js"></script>
+       
+       <!-- Google Fonts -->
+       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+       
+       <style type="text/css">
+           html{
+               height: 100%;
+           }
+           body{
+               font-family: 'Open Sans', sans-serif;
+               height: 100%;
+           }
+           #logoHeader{
+               margin-left: 33%;
+               height: 16px;
+               font-size: 1em;
+               padding-bottom: 0px;
+               margin-bottom: 0px;
+           } 
+           #congressAPI{
+               vertical-align: bottom;
+           }
+           #wrapper{
+               padding-left: 15%; 
+               height: 100%;
+           }
+           #wrapper.toggled{
+               padding-left: 0;
+           }
+           #nav_wrapper{
+               width: 15%;
+               height: 100%;
+               position: absolute;
+               margin-left: -15%;
+           }
+           #wrapper.toggled #nav_wrapper{
+               width: 0;
+           }
+           ul#nav{
+               margin-left: 0px;
+               margin-bottom: 0px;
+               padding-top: 15%;
+               padding-left: 10%;
+               width: 100%;
+               height: 100%;
+               background-color: #454545;
+               float: left;
+           }
+           ul#nav li{
+               list-style-type: none;
+               line-height: 3;
+               font-size: 0.9em;
+           }
+           ul#nav li a{
+               display: inline-block;
+               color: #C6C6C6;
+               text-decoration: none;
+           }
+           ul#nav li a:hover{
+               color: white;
+               text-decoration: none;
+           }
+           #infoContent{
+               background-color: #F3F3F3;
+               width: 85%;
+               height:100%;
+               padding-left: 1.8%;
+               padding-right: 1.2%;
+               position: absolute;
+           }
+           #wrapper.toggled #infoContent{
+               position: absolute;
+               width: 100%;
+           }
+           .congress_type {
+               padding-bottom: 0.6%;
+               padding-top: 0;
+               height: 8%;
+           }
+           .underLine{
+               border-bottom: 1px solid lightgrey;
+           }
+           .table_top{
+               margin-top: 2%;
+               margin-bottom: 2.5%;
+               height: 95%;
+               width: 99.5%;
+               background-color: white;
+           }
+           .table_top h5{
+               margin-left: 0;
+               padding-left: 5%;
+               padding-bottom: 
+           }
+           .shadowed_box{
+               border-radius: 3px;
+               box-shadow: 0 0 12px #9E9E9E; 
+               padding:0;
+               margin-left: 0.3%;
+           }
+           #myTabContent{
+               height: 89%;
+               margin-top: 1.6%;
+               margin-left: 2.5%;
+               width: 95%;
+               margin-right: 2.5%;
+               border: 1px solid lightgrey;
+               border-radius: 3px;
+           }
+           #tb_with_filter{
+               width: 100%;
+               height: 100%;
+           }
+           #tb_with_filter_lb{
+               padding-left:7%;
+               width: auto;
+               height: 40%;
+               margin-bottom: 2%;
+               font-size: 0.9em;
+           }
+           #btb_with_filter{
+               width: 100%;
+               height: 100%;
+           }
+           #filter_form{
+               margin-right: 5%;
+               text-align: right;
+           }
+           #btb_with_filter_lb{
+               padding-left:7%;
+               width: auto;
+               height: 40%;
+               margin-bottom: 2%;
+               font-size: 0.9em;
+           }
+           #pagi{
+               height: 4%;
+               vertical-align: top;
+               padding-bottom: 1.5%;
+               text-align: center;
+           }
+           #congressTable{
+               width: 100%;
+               margin-bottom: -2%;
+               height: 80%;
+               vertical-align: top;
+           }
+           #bcongressTable{
+               width: 100%;
+               margin-bottom: -2%;
+               height: 80%;
+               vertical-align: top;
+           }
+           .detailLine{
+               height:7%; 
+               width: 100%;
+           }
+           #detailImgTable{
+               text-align: center;
+               width:45%;
+               padding:1.5%;
+           }
+           .upLine tr{
+               border-top: 1px solid lightgrey;
+           }
+           #detailInTable{
+               vertical-align:top;
+               padding-left: 2%;
+               padding-right: 2%;
+               padding-top: 1%;
+               font-size: 0.9em;
+               width: 50%;
+           }
+           #billdetailtable{
+               padding-left: 4px;
+               padding-right: 4px;
+               padding-top: 3px;
+               font-size: 0.9em;
+               width: 50%;
+               height:100%;
+               vertical-align: top;
+           }
+           #dInfoTable{
+               vertical-align: top;
+               padding:1.5%;
+               width:55%;
+               padding-left: 0;
+           }
+           #dInfoTable tr{
+               width:100%;
+           }
+           #dInfoTable td{
+               height: 28px;
+               padding-left: 5%;
+               width:100%;
+           }
+           #detailot{
+               margin-top: 0;
+               padding-top: 0;
+               width:100%;
+           }
+           #detailot th{
+               width: 30%;
+               height:30px;
+               padding-left: 2.5%;
+               vertical-align: top;
+           }
+           #committeeTable{
+               font-size:0.96em;
+               width:96%;
+               margin-left:2%;
+               margin-right:2%
+           }
+           #committeeTable td{
+               padding-top: 4px;
+               padding-bottom: 4px;
+           }
+           #committeeTable th{
+               padding-top: 4px;
+               padding-bottom: 4px;
+           }
+           #billTable{
+               font-size:0.96em;
+               width:96%;
+               margin-left:2%;
+               margin-right:2%;
+               padding-bottom:1%;
+               margin-bottom: 1%;
+               
+           }
+           #billTable td{
+               vertical-align: top;
+               padding-top: 4px;
+           }
+           .icon_b{
+               color:yellow;
+               -webkit-text-stroke-width: 1px;
+               -webkit-text-stroke-color: black;
+           }
+           #bill_d_table{
+               font-size:0.96em;
+               width:46%;
+               margin-left:3%;
+               margin-top: 8px;
+           }
+           #bill_d_table td{
+               padding-top: 4px;
+               padding-bottom: 6px;
+               vertical-align: top;
+           }
+           #bill_d_table th{
+               padding-top: 4px;
+               padding-bottom: 4px;
+               vertical-align: top;
+           }
+           #myTab a{ 
+               font-size: 0.8em;
+           }
+       </style>
+       
+       <script type="text/javascript">
+           //php_url = "";
+           function slideTable(detailID){
+               $('#carouselleg').carousel('next');
+               $.ajax({
+                   //url: 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=legislators&byTab=detailinfo&detailid='+detailID,
+                   url: 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=detailinfo&detailid='+detailID,
+                   data:{symbol:"AAPL"},
+                   type: 'GET',
+                   success: function(response,status,xhr){
+                       obj = JSON.parse(response);
+                       show_detail_info_table(obj);
+                       //alert(obj.results[0].bioguide_id);
+                   },
+                   error: function(xhr,status,error){
+                       alert("detailerror");
+                   }
+               });
+               $.ajax({
+                   //url: 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=legislators&byTab=detailco&memberid='+detailID,
+                   url: 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=detailco&memberid='+detailID,
+                   data:{symbol:"AAPL"},
+                   type: 'GET',
+                   success: function(response,status,xhr){
+                       obj_1 = JSON.parse(response);
+                       show_detail_info_table1(obj_1);
+                       //alert(obj_1.results.length);
+                   },
+                   error: function(xhr,status,error){
+                       alert("detailerror");
+                   }
+               });
+               $.ajax({
+                   //url: 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=legislators&byTab=detailbi&sponsorid='+detailID,
+                   url: 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=detailbi&sponsorid='+detailID,
+                   data:{symbol:"AAPL"},
+                   type: 'GET',
+                   success: function(response,status,xhr){
+                       obj_two = JSON.parse(response);
+                       show_detail_info_table2(obj_two);
+                       alert(obj_two.results.length);
+                   },
+                   error: function(xhr,status,error){
+                       alert("detailerror");
+                   }
+               });
+           }
+           function slideBillTable(billDetailID){
+               $('#carouselbill').carousel('next');
+               $.ajax({
+                   //url: 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=bills&byTab=detail&billid='+billDetailID,
+                   url: 'http://cs-server.usc.edu:24387/infoprecess.php?datab=bills&byTab=detail&billid='+billDetailID,
+                   data:{symbol:"AAPL"},
+                   type: 'GET',
+                   success: function(response,status,xhr){
+                       bill_obj_two = JSON.parse(response);
+                       show_bill_info_table(bill_obj_two);
+                       //alert(bill_obj_two.results[0].chamber);
+                   },
+                   error: function(xhr,status,error){
+                       alert("detailerror");
+                   }
+               });
+           }
+           function detailBack(){
+               $('#carouselleg').carousel('prev');
+           }
+           function billdetailBack(){
+               $('#carouselbill').carousel('prev');
+           }
+           function checkExist(obj_tobe_ckeck){
+               if(typeof obj_tobe_ckeck != "undefined"){
+                   if(obj_tobe_ckeck != null){
+                       if(obj_tobe_ckeck == "house"){
+                           return "House";
+                       }
+                       else if(obj_tobe_ckeck == "senate"){
+                           return "Senate";
+                       }
+                       else{
+                           return obj_tobe_ckeck;
+                       }
+                   }
+                   else{
+                       return 'N.A';
+                   }
+               }
+               else{
+                   return 'N.A';
+               }
+           }
+           function matchMonth(month){
+               switch(month){
+                   case 1: return 'Jan';
+                   case 2: return 'Feb';
+                   case 3: return 'Mar';
+                   case 4: return 'Apr';
+                   case 5: return 'May';
+                   case 6: return 'Jun';
+                   case 7: return 'Jul';
+                   case 8: return 'Aug';
+                   case 9: return 'Sep';
+                   case 10: return 'Oct';
+                   case 11: return 'Nov';
+                   case 12: return 'Dec';
+               }
+           }
+           function changeDateFormat(dateobj){
+               if(dateobj != 'N.A'){
+                   var datestr = new Date(dateobj);
+                   var newdate = matchMonth(datestr.getMonth()+1)+' '+ datestr.getDate()+', '+datestr.getFullYear();
+                   //alert(datestr.getMonth());
+                   return newdate;
+               }
+               else{
+                   return dateobj;
+               }
+           }
+           function percentage(dobj1,dobj2){
+               var cur = new Date($.now());
+               var beg = new Date(dobj1);
+               var sto = new Date(dobj2);
+               var total = sto.getTime()-beg.getTime();
+               var timepass = cur.getTime()-beg.getTime();
+               return Math.round(100*timepass/total);
+           }
+           function show_bill_info_table(billdetailobj){
+               var h = '<table class="upLine" id="bill_d_table" style="width:96%">';
+               h += '<tr><th style="width:15%">Bill ID</th><td>'+checkExist(billdetailobj.results[0].bill_id)+'</td></tr>';
+               h += '<tr><th>Title</th><td>'+checkExist(billdetailobj.results[0].official_title)+'</td></tr>';
+               h += '<tr><th>Bill Type</th><td>';
+               if(checkExist(billdetailobj.results[0].official_title)!='N.A'){
+                   h += billdetailobj.results[0].official_title.toUpperCase();
+               }
+               h += '</td></tr>';
+               h += '<tr><th>Sponsor</th><td>'+billdetailobj.results[0].sponsor.title+'. '+billdetailobj.results[0].sponsor.last_name+', '+billdetailobj.results[0].sponsor.first_name+'</td></tr>';
+               h += '<tr><th>Chamber</th><td>'+checkExist(billdetailobj.results[0].chamber)+'</td></tr>';
+               h += '<tr><th>Status</th><td>';
+               if(billdetailobj.results[0].history.active==true){
+                   h += 'Active</td></tr>';
+               }
+               else{
+                   h += 'New</td></tr>';
+               }
+               h += '<tr><th>Introduced On</th><td>'+changeDateFormat(checkExist(billdetailobj.results[0].introduced_on))+'</td></tr>';
+               h += '<tr><th>Congress URL</th><td>';
+               if(checkExist(billdetailobj.results[0].urls.congress)!='N.A'){
+                   h += '<a href="'+billdetailobj.results[0].urls.congress+'">URL</a></td></tr>';
+               }
+               else{
+                   h += 'N.A</td></tr>';
+               }
+               h += '<tr><th>Version Status</th><td>'+checkExist(billdetailobj.results[0].last_version.version_name)+'</td></tr><tr><th>Bill URL</th><td>';
+               if(checkExist(billdetailobj.results[0].last_version.urls.pdf)!='N.A'){
+                   h += '<a href="'+billdetailobj.results[0].last_version.urls.pdf+'">Link</a></td></tr>';
+                   h1 = '<embed style="margin-top:3px" width="98%" height="460px" type="application/pdf"  src="'+billdetailobj.results[0].last_version.urls.pdf+'"></embed>'
+               }
+               else{
+                   h += 'N.A</td></tr>';
+               }
+               h += '</table>';
+               $("#billdetailTable").html(h);
+               $("#billpdf").html(h1);
+           }
+           function show_detail_info_table(detailobj){
+               h_t = '<img style="height:150px" src="http://theunitedstates.io/images/congress/225x275/'+detailobj.results[0].bioguide_id+'.jpg">';
+               h_t_t = '<table style="width:100%"><tr><td>'+detailobj.results[0].title+'. '+detailobj.results[0].last_name+', '+detailobj.results[0].first_name+'</td></tr><tr><td>';
+               if(checkExist(detailobj.results[0].oc_email)!='N.A'){
+                   h_t_t += '<a href="mailto:'+detailobj.results[0].oc_email + '">'+detailobj.results[0].oc_email+'</a>';
+               }
+               else{
+                   h_t_t+='N.A';
+               }
+               h_t_t +='</td></tr><tr><td>Chamber: '+checkExist(detailobj.results[0].chamber)+'</td></tr><tr><td>Contact: <a>'+checkExist(detailobj.results[0].phone)+'</a></td></tr><tr><td>';
+               if(checkExist(detailobj.results[0].party)=="R"){
+                   h_t_t += '<img style="height:23px" src="r.png">Republic';
+               }
+               else if(checkExist(detailobj.results[0].party)=="D"){
+                   h_t_t += '<img style="height:23px" src="d.png">Democrat';
+               }
+               else{
+                   h_t_t += 'N.A';
+               }
+               h_t_t += '</td></tr></table>';
+               htext = '<table id="detailot"><tr sytle="border-top:0"><th>Start Term</th><td>';
+               htext += changeDateFormat(checkExist(detailobj.results[0].term_start))+'</td></tr>';
+               htext += '<tr><th>End Term</th><td>'+changeDateFormat(checkExist(detailobj.results[0].term_end))+'</td></tr>';
+               htext += '<tr><th>Terms</th><td>'+'<div class="progress" style="margin-top:2%;margin-bottom:5%"><div class="progress-bar" role="progressbar" aria-valuenow="';
+               var pctg = percentage(detailobj.results[0].term_start,detailobj.results[0].term_end);
+               htext += pctg+'" aria-valuemin="0" aria-valuemax="100" style="width:'+pctg+'%;background-color:#5FB760">'+pctg+'%</div></div>'+'</td></tr>';
+               htext += '<tr><th>Office</th><td>'+checkExist(detailobj.results[0].office)+'</td></tr>';
+               htext += '<tr><th>State</th><td>'+checkExist(detailobj.results[0].state_name)+'</td></tr>';
+               htext += '<tr><th>Fax</th><td>';
+               if(checkExist(detailobj.results[0].fax)!='N.A'){
+                   htext += '<a>'+checkExist(detailobj.results[0].fax)+'</a>';
+               }
+               else{
+                   htext +='N.A';                          
+               }
+               htext +='</td></tr>';
+               htext += '<tr><th>Birthday</th><td>'+changeDateFormat(checkExist(detailobj.results[0].birthday))+'</td></tr>';
+               htext += '<tr><th>Social Links</th><td>';
+               if(checkExist(detailobj.results[0].twitter_id) != 'N.A'){
+                   htext += '<a href="http://twitter.com/'+checkExist(detailobj.results[0].twitter_id)+'"><img src="t.png" style="height:26px"></a>&nbsp;';
+               }
+               if(checkExist(detailobj.results[0].facebook_id) != 'N.A'){
+                   htext += '<a href="http://facebook.com/'+checkExist(detailobj.results[0].facebook_id)+'"><img src="f.png" style="height:26px"></a>&nbsp;';
+               }
+               if(checkExist(detailobj.results[0].website) != 'N.A'){
+                   htext += '<a href="'+checkExist(detailobj.results[0].website)+'"><img src="w.png" style="height:26px"></a>';
+               }
+               htext += '</td></tr></table>';
+               $("#detailImgTable").html(h_t);
+               $("#dInfoTable").html(h_t_t);
+               $("#detailotherInfo").html(htext);
+           }
+           function show_detail_info_table1(detailobj1){
+               if(detailobj1.results.length==0){
+                   htext_1 = '<tr style="width:100%"><td><table><tr><th style="width:18%">Chamber</th><th style="width:21%">Committee ID</th><th style="width:57%">Name</th></tr>';
+               }
+               else{
+                   htext_1 = '<tr style="width:100%"><td><table><tr><th style="width:18%">Chamber</th><th style="width:21%">Committee ID</th><th style="width:57%">Name</th></tr>';
+                   var bouns = Math.min(detailobj1.results.length,5);
+                   for(var i=0;i<bouns;i++){
+                       htext_1 += '<tr style="border-top:1px solid lightgrey;height:15%"><td>';
+                       if(detailobj1.results[i].chamber=="house"){
+                           htext_1 += 'House</td><td>';
+                       }
+                       else if(detailobj1.results[i].chamber=="senate"){
+                           htext_1 += 'Senate</td><td>';
+                       }
+                       htext_1 += checkExist(detailobj1.results[i].committee_id)+'</td><td>'+checkExist(detailobj1.results[i].name)+'</td></tr>';
+                   }
+                   htext_1 += '</table></td></tr>';
+               }
+               $("#committeeTable").html(htext_1);
+           }
+           function show_detail_info_table2(detailobj2){
+               if(detailobj2.results.length==0){
+                   htext_2 = '<tr style="width:100%"><td><table><tr><th style="width:18%">Bill ID</th><th style="width:33%">Title</th><th style="width:15%">Chamber</th><th style="width:13%">Bill Type</th><th style="width:12%">Congress</th><th style="width:5%">Link</th></tr>';
+               }
+               else{
+                   htext_2 = '<tr style="width:100%"><td><table><tr><th style="width:18%">Bill ID</th><th style="width:33%">Title</th><th style="width:15%">Chamber</th><th style="width:13%">Bill Type</th><th style="width:12%">Congress</th><th style="width:5%">Link</th></tr>';
+                   var bouns2 = Math.min(detailobj2.results.length,5);
+                   for(var j=0;j<bouns2;j++){
+                       htext_2 += '<tr style="border-top:1px solid lightgrey"><td>'+detailobj2.results[j].bill_id+'</td><td style="padding-right:0.5%">';
+                       htext_2 += checkExist(detailobj2.results[j].official_title)+'</td><td>';
+                       if(detailobj2.results[j].chamber=="house"){
+                           htext_2 += 'House</td><td>';
+                       }
+                       else if(detailobj2.results[j].chamber=="senate"){
+                           htext_2 += 'Senate</td><td>';
+                       }
+                       htext_2 += checkExist(detailobj2.results[j].bill_type)+'</td><td>'+checkExist(detailobj2.results[j].congress)+'</td><td>';
+                       if(checkExist(detailobj2.results[j].last_version.urls.pdf) != 'N.A'){
+                           htext_2 += '<a href="'+checkExist(detailobj2.results[j].last_version.urls.pdf)+'">Link</a>';
+                       }
+                       else{
+                           htext_2 += 'N.A';
+                       }
+                       '</td></tr>';
+                   }
+                   htext_2 += '</table></td></tr>';
+               }
+               $("#billTable").html(htext_2);
+           }
+           function show_info_table(infoType){
+               var legisBy;
+               var legisFilter;
+               if(infoType == "state"){
+                   legisBy = "State";
+                   legisFilter = '<select name="state" id="whichstate" ng-model="q.state_name"><option style="color:lightgray" value="" selected="selected" ng-click="clearFilter()">All State</option><option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="DC">District Of Columbia</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option></select>';
+                   legisTable = '<div class="container" style="width:95%" id="TabTableContainer"><div ng-controller="MyController" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:16%">Party</th><th style="width:19%">Name</th><th style="width:17%">Chamber</th><th style="width:17%">District</th><th style="width:17%">State</th><th></th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:q.state_name:true | itemsPerPage:10" pagination-id="pagid1" current-page="currentPage" style="font-size:0.9em; height:5%"><td><img style="height:23px" src={{x.party}}></td><td>{{x.last_name+", "+x.first_name}}</td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.district}}</td><td>{{x.state_name}}</td><td style="text-align:right"><button type="button" id={{x.bioguide_id}} onclick="slideTable(this.id)" class="btn btn-primary" style="font-size: 0.8em">View Details</button></td></tr></tbody></table></div></div><div ng-controller="OtherController" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagid1" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               else if(infoType == "house"){
+                   legisBy = "House";
+                   legisFilter = '<input type="text" name="keyword" id="keyHouse" size="20" placeholder="Search" ng-model="p">';
+                   legisTable = '<div class="container" style="width:95%" id="TabTableContainer1"><div ng-controller="MyController1" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:16%">Party</th><th style="width:19%">Name</th><th style="width:17%">Chamber</th><th style="width:17%">District</th><th style="width:17%">State</th><th></th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:p | itemsPerPage:10" pagination-id="pagid2" current-page="currentPage" style="font-size:0.9em; height:5%"><td><img style="height:23px" src={{x.party}}></td><td>{{x.last_name+", "+x.first_name}}</td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.district}}</td><td>{{x.state_name}}</td><td style="text-align:right"><button type="button" id={{x.bioguide_id}} onclick="slideTable(this.id)" class="btn btn-primary" style="font-size: 0.8em">View Details</button></td></tr></tbody></table></div></div><div ng-controller="OtherController1" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagid2" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               else if(infoType == "senate"){
+                   legisBy = "Senate";
+                   legisFilter = '<input type="text" name="keyword" id="keySenate" size="20" placeholder="Search" ng-model="p">';
+                   legisTable = '<div class="container" style="width:95%" id="TabTableContainer2"><div ng-controller="MyController2" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:23%">Party</th><th style="width:20%">Name</th><th style="width:25%">Chamber</th><th style="width:20%">State</th><th></th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:p | itemsPerPage:10" pagination-id="pagid3" current-page="currentPage" style="font-size:0.9em; height:5%"><td><img style="height:23px" src={{x.party}}></td><td>{{x.last_name+", "+x.first_name}}</td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.state_name}}</td><td style="text-align:right"><button type="button" id={{x.bioguide_id}} onclick="slideTable(this.id)" class="btn btn-primary" style="font-size: 0.8em">View Details</button></td></tr></tbody></table></div></div><div ng-controller="OtherController2" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagid3" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               
+               html_text = '<table id="tb_with_filter"><tr class="underLine" style="background-color:#F0F0F0"><td style="height:6%"><div id="tb_with_filter_lb"><b>Legislators By ' + legisBy + '</b></div></td><td><form id="filter_form" name="myform">' + legisFilter + '</form></td></tr>';
+               html_text += '<tr style="height:88%; width:90%"><td id="congressTable" colspan="2">';
+               html_text += legisTable;
+               html_text += '</td></tr></table>';
+               if(infoType == "state"){
+                   $("#state").html(html_text);
+               }
+               else if(infoType == "house"){
+                   $("#house").html(html_text);
+               }
+               else if(infoType == "senate"){
+                   $("#senate").html(html_text);
+               }
+               
+           }
+           function changeTab(whichTab){
+               if(whichTab == "state"){
+                   $("#bTab").val("state");
+                   $("#whichstate").val("");
+               }
+               else if(whichTab == "house"){
+                   $("#bTab").val("house");
+                   $("#keyHouse").val("");                 
+               }
+               else if(whichTab == "senate"){
+                   $("#bTab").val("senate");
+                   $("#keySenate").val("");
+               }
+           }
+           function billchangeTab(whichbillTab){
+               
+           }
+           function show_bill_table(whichbilltable){
+               var h = "";
+               if(whichbilltable=="activebill"){
+                   billBy = "Active Bills";
+                   billFilter = '<input type="text" name="keyword" size="20" placeholder="Search" ng-model="b">';
+                   billT = '<div class="container" style="width:95%" id="BillTabTableContainer"><div ng-controller="MyBillController" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:12%">Bill ID</th><th style="width:12%">Bill Type</th><th style="width:20%">Title</th><th style="width:12%">Chamber</th><th style="width:13%">Introducted On</th><th style="width:18%">Sponsor</th><th></th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:b | itemsPerPage:10" pagination-id="pagidb1" current-page="currentPage" style="font-size:0.9em; height:5%"><td>{{x.bill_id}}</td><td>{{x.bill_type}}</td><td>{{x.official_title}}</td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.introduced_on}}</td><td>{{x.sponsor}}</td><td style="text-align:right"><button type="button" id={{x.bill_id}} onclick="slideBillTable(this.id)" class="btn btn-primary" style="font-size: 0.8em">View Details</button></td></tr></tbody></table></div></div><div ng-controller="OtherBillController" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagidb1" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               else if(whichbilltable=="newbill"){
+                   billBy = "New Bills";
+                   billFilter = '<input type="text" name="keyword" size="20" placeholder="Search" ng-model="b">';
+                   billT = '<div class="container" style="width:95%" id="BillTabTableContainer1"><div ng-controller="MyBillController1" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:12%">Bill ID</th><th style="width:12%">Bill Type</th><th style="width:20%">Title</th><th style="width:12%">Chamber</th><th style="width:13%">Introducted On</th><th style="width:18%">Sponsor</th><th></th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:b | itemsPerPage:10" pagination-id="pagidb2" current-page="currentPage" style="font-size:0.9em; height:5%"><td>{{x.bill_id}}</td><td>{{x.bill_type}}</td><td>{{x.official_title}}</td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.introduced_on}}</td><td>{{x.sponsor}}</td><td style="text-align:right"><button type="button" id={{x.bill_id}} onclick="slideBillTable(this.id)" class="btn btn-primary" style="font-size: 0.8em">View Details</button></td></tr></tbody></table></div></div><div ng-controller="OtherBillController1" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagidb2" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               h = '<table id="btb_with_filter"><tr class="underLine" style="background-color:#F0F0F0"><td style="height:6%"><div id="btb_with_filter_lb"><b>' + billBy + '</b></div></td><td><form style="margin-right: 5%;text-align: right">' + billFilter + '</form></td></tr>';
+               h += '<tr style="height:88%; width:90%"><td id="bcongressTable" colspan="2">';
+               h += billT;
+               h += '</td></tr></table>';
+               if(whichbilltable=="activebill"){
+                   $("#abills").html(h);
+               }
+               else if(whichbilltable=="newbill"){
+                   $("#nbills").html(h);
+               }
+           }
+           
+           function show_committee_table(whichcomtable){
+               var h = "";
+               if(whichcomtable == "house"){
+                   committeeBy = "House";
+                   committeeFilter = '<input type="text" name="keyword" size="20" placeholder="Search" ng-model="c">';
+                   committeeT = '<div class="container" style="width:95%" id="CommitteeTabTableContainer"><div ng-controller="MyCommitteeController" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:5%"></th><th style="width:8%">Chamber</th><th style="width:11%">Committee ID</th><th style="width:45%">Name</th><th style="width:12%">Parent Committee</th><th style="width:8%">Contact</th><th style="width:8%">Office</th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:c | itemsPerPage:10" pagination-id="pagidc1" current-page="currentPage" style="font-size:0.9em; height:5%"><td><button type="button" id="c"+{{x.committee_id}} class="btn btn-default btn-md" onclick="favorite(this.id, 2)"><i class="fa fa-star-o" aria-hidden="true"></i></button></td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.committee_id}}</td><td>{{x.name}}</td><td>{{x.parent_committee}}</td><td>{{x.phone}}</td><td>{{x.office}}</td></tr></tbody></table></div></div><div ng-controller="OtherCommitteeController" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagidc1" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               else if(whichcomtable == "senate"){
+                   committeeBy = "Senate";
+                   committeeFilter = '<input type="text" name="keyword" size="20" placeholder="Search" ng-model="c">';
+                   committeeT = '<div class="container" style="width:95%" id="CommitteeTabTableContainer"><div ng-controller="MyCommitteeController1" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:5%"></th><th style="width:9%">Chamber</th><th style="width:12%">Committee ID</th><th style="width:60%">Name</th><th style="width:12%">Parent Committee</th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:c | itemsPerPage:10" pagination-id="pagidc2" current-page="currentPage" style="font-size:0.9em; height:5%"><td><button type="button" id="c"+{{x.committee_id}} class="btn btn-default btn-md" onclick="favorite(this.id, 2)"><i class="fa fa-star-o" aria-hidden="true"></i></button></td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.committee_id}}</td><td>{{x.name}}</td><td>{{x.parent_committee}}</td></tr></tbody></table></div></div><div ng-controller="OtherCommitteeController1" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagidc2" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               else if(whichcomtable == "joint"){
+                   committeeBy = "Joint";
+                   committeeFilter = '<input type="text" name="keyword" size="20" placeholder="Search" ng-model="c">';
+                   committeeT = '<div class="container" style="width:95%" id="CommitteeTabTableContainer"><div ng-controller="MyCommitteeController2" class="my-controller"><table class="table table-hover" style="width:100%; margin-bottom:0"><thead><tr style="width:100%; font-size: 0.9em"><th style="width:6%"></th><th style="width:14%">Chamber</th><th style="width:18%">Committee ID</th><th style="width:60%">Name</th></tr></thead><tbody><tr><tr dir-paginate="x in resultList | filter:c | itemsPerPage:10" pagination-id="pagidc3" current-page="currentPage" style="font-size:0.9em; height:5%"><td><button type="button" id="c"+{{x.committee_id}} class="btn btn-default btn-md" onclick="favorite(this.id, 2)"><i class="fa fa-star-o" aria-hidden="true"></i></button></td><td><img style="height:23px" src={{x.chamberimg}}>{{x.chamber}}</td><td>{{x.committee_id}}</td><td>{{x.name}}</td></tr></tbody></table></div></div><div ng-controller="OtherCommitteeController2" class="other-controller" style="height:6%"><div class="text-center"><dir-pagination-controls pagination-id="pagidc3" boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"><ul class="pagination pagination-sm" style="margin:0" ng-if="1 < pages.length || !autoHide"><li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(1)">&laquo;</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }"><a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a></li><li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == "..." }"><a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a></li><li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a></li><li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }"><a href="" ng-click="setCurrent(pagination.last)">&raquo;</a></li></ul></dir-pagination-controls></div></div>';
+               }
+               h = '<table id="ctb_with_filter"><tr class="underLine" style="background-color:#F0F0F0"><td style="height:6%"><div id="ctb_with_filter_lb"><b>' + billBy + '</b></div></td><td><form style="margin-right: 5%;text-align: right">' + billFilter + '</form></td></tr>';
+               h += '<tr style="height:88%; width:90%"><td id="ccongressTable" colspan="2">';
+               h += billT;
+               h += '</td></tr></table>';
+               if(whichcomtable == "house"){
+                   $("#ch").html(h);
+               }
+               else if(whichcomtable == "senate"){
+                   $("#cs").html(h);
+               }
+               else if(whichcomtable == "joint"){
+                   $("#cj").html(h);
+               }
+           }
+           
+           function changeDatabase(whichdb){
+               document.getElementById("db").value = whichdb;
+               if(whichdb == "legislators"){
+                   document.getElementById("dbheader").innerHTML = "Legislators";
+               }
+               else if(whichdb == "bills"){
+                   $("#dbheader").html('Bills');
+               }
+               else if(whichdb == "committees"){
+                   $("#dbheader").html("Committees");
+               }
+               else if(whichdb == "favorites"){
+                   $("#dbheader").html("Favorites");
+               }
+           }
+           function favorite(id,d){
+               if(d==0){
+                   $("#favbtn").html('<button type="button" class="btn btn-default btn-md" onclick="unfavorite(0)"><i class="fa fa-star icon_b" aria-hidden="true"></i></button>');
+               }
+               else if(d==1){
+                   $("#favbtn1").html('<button type="button" class="btn btn-default btn-md" onclick="unfavorite(1)"><i class="fa fa-star icon_b" aria-hidden="true"></i></button>');
+               }
+               else if(d==2){
+                   //$("#favbtn2").html('<button type="button" class="btn btn-default btn-md" onclick="unfavorite(2)"><i class="fa fa-star icon_b" aria-hidden="true"></i></button>');
+               }
+           }
+           function unfavorite(id,b){
+               if(b==0){
+                   $("#favbtn").html('<button type="button" class="btn btn-default btn-md" onclick="favorite(0)"><i class="fa fa-star-o" aria-hidden="true"></i></button>');
+               }
+               else if(b==1){
+                   $("#favbtn1").html('<button type="button" class="btn btn-default btn-md" onclick="favorite(1)"><i class="fa fa-star-o" aria-hidden="true"></i></button>');
+               }
+               else if(b==2){
+                   //$("#favbtn2").html('<button type="button" class="btn btn-default btn-md" onclick="favorite(2)"><i class="fa fa-star-o" aria-hidden="true"></i></button>');
+               }
+           }
+       </script>
+       <!-- HTML5 Shim 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+       <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+       <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+       <![endif]-->
+   </head>
+   <body>
+       <!-- Page Header -->
+       <table style="width: 100%; vertical-align: top">
+           <tr style="height: 38px">
+               <td style="padding-left: 2%">
+                   <a id="menu-toggle" href="#menu-toggle"><i class="fa fa-bars" aria-hidden="true" style="color:black"></i></a>
+               </td>
+               <td style="padding-bottom: 1.5%">
+                   <table id="logoHeader" style="text-align: top">
+                       <tr style="height: 25px">
+                           <td><a href="http://sunlightfoundation.com/"><img src="logo.png" height="16px"></a></td>
+                           <td id="congressAPI"><b>&nbsp;Congress API</b></td>
+                       </tr>
+                   </table>
+               </td>
+           </tr>
+       </table>
+       
+       <!-- Hidden Form -->
+       <form name="hiddenform" id="hidform" method="get">
+           <input type="hidden" name="byTab" id="bTab" value="state">
+           <input type="hidden" name="database" id="db" value="legislators">
+       </form>
+       
+       <!-- Page Content -->
+       <div id="wrapper">
+           <!-- Sidebar Navigation -->
+           <div id="nav_wrapper">
+               <ul id="nav" role="tablist">
+                   <li role="presentation" class="active"><a href="#legisdb" role="tab" data-toggle="tab" onclick="changeDatabase('legislators')"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Legislators</a></li>
+                   <li role="presentation"><a href="#billdb" role="tab" data-toggle="tab" onclick="changeDatabase('bills')"><i class="fa fa-file-o" aria-hidden="true"></i>&nbsp;&nbsp;Bills</a></li>
+                   <li role="presentation"><a href="#committeedb" role="tab" data-toggle="tab" onclick="changeDatabase('committees')"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;&nbsp;Committees</a></li>
+                   <li role="presentation"><a href="#favoritedb" role="tab" data-toggle="tab" onclick="changeDatabase('favorites')"><i class="fa fa-star" aria-hidden="true"></i>&nbsp;&nbsp;Favorites</a></li>
+               </ul>
+           </div>
+           <!-- Information Table -->   
+           <div id="infoContent"><table style="width:100%; height:100%">
+               <tr>
+                   <td class="congress_type underLine">
+                       <h3 id="dbheader">Legislators</h3>
+                   </td>
+               </tr>
+               <tr style="height:92%">
+                   <td style="height:100%">
+                       <div class="tab-content" style="height:100%"><div role="tabpanel" class="tab-pane active" id="legisdb" style="height:100%"><div id="carouselleg" class="carousel slide" data-ride="carousel" style="height:100%" data-interval="false">
+                           <div class="carousel-inner" role="listbox" style="height:100%">
+                               <div class="item active table_top shadowed_box">
+                                   <ul class="nav nav-tabs" role="tablist" id="myTab">
+                                       <li role="presentation" class="active"><a id="byState" href="#state" role="tab" data-toggle="tab"><span id="bst" style="color:black">By State</span></a></li>
+                                       <li role="presentation"><a id="byHouse" href="#house" role="tab" data-toggle="tab"><span id="bh" style="color:#DCDCDC">House</span></a></li>
+                                       <li role="presentation"><a id="bySenate" href="#senate" role="tab" data-toggle="tab"><span id="bse" style="color:#DCDCDC">Senate</span></a></li>
+                                       <script>
+                                           $("#byState").click(function(e){
+                                               e.preventDefault();
+                                               $("#bst").css({"color": "black"});
+                                               $("#bh").css({'color': '#DCDCDC'});
+                                               $("#bse").css({'color': '#DCDCDC'});
+                                           });
+                                           $("#byHouse").click(function(e){
+                                               e.preventDefault();
+                                               $("#bst").css({'color': '#DCDCDC'});
+                                               $("#bh").css({'color': 'black'});
+                                               $("#bse").css({'color': '#DCDCDC'});
+                                           });
+                                           $("#bySenate").click(function(e){
+                                               e.preventDefault();
+                                               $("#bst").css({'color': '#DCDCDC'});
+                                               $("#bh").css({'color': '#DCDCDC'});
+                                               $("#bse").css({'color': 'black'});
+                                           });
+                                       </script>
+                                   </ul>
+                                   <!-- Tab panes -->
+                                   <div class="tab-content" id="myTabContent">
+                                       <div role="tabpanel" class="tab-pane active" id="state" style="height:100%">
+                                           <script>show_info_table("state");</script>
+                                       </div>
+                                       <div role="tabpanel" class="tab-pane" id="house" style="height:100%">
+                                           <script>show_info_table("house");</script>
+                                       </div>
+                                       <div role="tabpanel" class="tab-pane" id="senate" style="height:100%">
+                                           <script>show_info_table("senate");</script>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="item" style="height:100%">
+                                   <table class="table_top shadowed_box">
+                                       <tr class="detailLine underLine">
+                                           <td style="padding-left:1%;width:50%;vertical-align:center">
+                                               <button type="button" class="btn btn-default btn-md" onclick="detailBack()">
+                                                   <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                               </button><span style="font-size:1.5em;">Details</span>
+                                           </td>
+                                           <td style="text-align:right; padding-right:1%; width:50%" id="favbtn">
+                                               <button type="button" id="star_btn" class="btn btn-default btn-md" onclick="favorite(0)">
+                                                   <i class="fa fa-star-o" aria-hidden="true"></i>
+                                               </button>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td id="detailInTable" class="upLine">
+                                               <table style="width:100%">
+                                                   <tr>
+                                                       <td id="detailImgTable"></td>
+                                                       <td id="dInfoTable"></td>
+                                                   </tr>
+                                                   <tr style="border-top:0"><td id="detailotherInfo" colspan="2"></td></tr>
+                                               </table>
+                                           </td>
+                                           <td style="width:50%">
+                                               <table style="width:100%;height:100%">
+                                                   <tr><td style="vertical-align:top;height:auto">
+                                                       <span style="font-size:1.3em">Committees</span>
+                                                       <table id="committeeTable">
+                                                       </table>
+                                                   </td></tr>
+                                                   <tr><td style="vertical-align:top">
+                                                       <span style="font-size:1.3em">Bills</span>
+                                                       <table id="billTable">
+                                                       </table>
+                                                   </td></tr>
+                                               </table>
+                                           </td>
+                                       </tr>
+                                   </table>
+                               </div>
+                           </div>
+                       </div></div>
+                       <div role="tabpanel" class="tab-pane" id="billdb" style="height:100%">
+                           <div id="carouselbill" class="carousel slide" data-ride="carousel" style="height:100%" data-interval="false">
+                               <div class="carousel-inner" role="listbox" style="vertical-align:top">
+                                   <div class="item active table_top shadowed_box">
+                                       <ul class="nav nav-tabs" role="tablist" id="myTabb">
+                                           <li role="presentation" class="active"><a id="activeBills" style="color: #DCDCDC; font-size: 0.8em" href="#abills" role="tab" data-toggle="tab"><span id="abi" style="color:black">Active Bills</span></a></li>
+                                           <li role="presentation"><a id="newBills" style="color: #DCDCDC; font-size: 0.8em" href="#nbills" role="tab" data-toggle="tab"><span id="nbi">New Bills</span></a></li>
+                                           <script>
+                                               $("#activeBills").click(function(e){
+                                               e.preventDefault();
+                                               $("#abi").css({"color": "black"});
+                                               $("#nbi").css({'color': '#DCDCDC'});
+                                           });
+                                           $("#newBills").click(function(e){
+                                               e.preventDefault();
+                                               $("#abi").css({'color': '#DCDCDC'});
+                                               $("#nbi").css({'color': 'black'});
+                                           });
+                                           </script>
+                                       </ul>
+                                       <!-- Tab panes -->
+                                       <div class="tab-content" id="mybillTabContent">
+                                           <div role="tabpanel" class="tab-pane active" id="abills" style="height:100%">
+                                               <script>show_bill_table("activebill");</script>
+                                           </div>
+                                           <div role="tabpanel" class="tab-pane" id="nbills" style="height:100%">
+                                               <script>show_bill_table("newbill");</script>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="item" style="vertical-align:top">
+                                       <table class="table_top shadowed_box">
+                                           <tr class="detailLine underLine">
+                                               <td style="padding-left:1%;width:50%;vertical-align:center">
+                                                   <button type="button" class="btn btn-default btn-md" onclick="billdetailBack()">
+                                                       <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                                   </button><span style="font-size:1.5em;">Details</span>
+                                               </td>
+                                               <td style="text-align:right; padding-right:1%; width:50%" id="favbtn1">
+                                                   <button type="button" id="star_btn1" class="btn btn-default btn-md" onclick="favorite(1)">
+                                                       <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                   </button>
+                                               </td>
+                                           </tr>
+                                           <tr style="width:100%">
+                                               <td class="upLine" id="billdetailTable" style="vertical-align:top">
+                                               </td>
+                                               <td style="width:50%" id="billpdf">
+                                               </td>
+                                           </tr>
+                                       </table>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div role="tabpanel" class="tab-pane" id="committeedb" style="height:100%;vertical-align:top">
+                                   <div class="item active table_top shadowed_box">
+                                       <ul class="nav nav-tabs" role="tablist" id="myTabc">
+                                           <li role="presentation" class="active"><a id="chouse" style="color: #DCDCDC; font-size: 0.8em" href="#ch" role="tab" data-toggle="tab"><span id="hcom" style="color:black">House</span></a></li>
+                                           <li role="presentation"><a id="csenate" style="color: #DCDCDC; font-size: 0.8em" href="#cs" role="tab" data-toggle="tab"><span id="scom">Senate</span></a></li>
+                                           <li role="presentation"><a id="cjoint" style="color: #DCDCDC; font-size: 0.8em" href="#cj" role="tab" data-toggle="tab"><span id="jcom">New Bills</span></a></li>
+                                           <script>
+                                               $("#chouse").click(function(e){
+                                               e.preventDefault();
+                                               $("#hcom").css({"color": "black"});
+                                               $("#scom").css({'color': '#DCDCDC'});
+                                               $("#jcom").css({'color': '#DCDCDC'});
+                                           });
+                                           $("#csenate").click(function(e){
+                                               e.preventDefault();
+                                               $("#hcom").css({'color': '#DCDCDC'});
+                                               $("#scom").css({'color': 'black'});
+                                               $("#jcom").css({'color': '#DCDCDC'});
+                                           });
+                                               $("#cjoint").click(function(e){
+                                               e.preventDefault();
+                                               $("#hcom").css({'color': '#DCDCDC'});
+                                               $("#scom").css({'color': '#DCDCDC'});
+                                               $("#jcom").css({'color': 'black'});
+                                           });
+                                           </script>
+                                       </ul>
+                                       <!-- Tab panes -->
+                                       <div class="tab-content" id="mycommitteeTabContent">
+                                           <div role="tabpanel" class="tab-pane active" id="ch" style="height:100%">
+                                               <script>show_bill_table("house");</script>
+                                           </div>
+                                           <div role="tabpanel" class="tab-pane" id="cs" style="height:100%">
+                                               <script>show_bill_table("senate");</script>
+                                           </div>
+                                           <div role="tabpanel" class="tab-pane" id="cj" style="height:100%">
+                                               <script>show_bill_table("joint");</script>
+                                           </div>
+                                       </div>
+                                   </div>
+                       </div>
+                       <div role="tabpanel" class="tab-pane" id="favoritedb" style="height:100%">
+                           
+                       </div>
+                       </div>
+                   </td>
+               </tr>
+           </table></div>
+       </div>     
+           
+       <script>
+           $("#menu-toggle").click(function(e) {
+               e.preventDefault();
+               $("#wrapper").toggleClass("toggled");
+           });
+           var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination']);
+           
+           function MyController($scope,$http) {
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  //var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/index.php?datab=legislators&byTab=state&state=all';
+                  var url = 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=state&state=all';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      alert(Object.keys(data.results).length);
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('party')){
+                               if(d.party == "R"){
+                                   d.party = 'r.png';
+                               }
+                               else if(d.party == "D"){
+                                   d.party = 'd.png';
+                               }
+                               else{
+                                   d.party = 'N.A';
+                               }
+                          }
+                          else{
+                              d.party = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('district')){
+                               if(d.district != null){
+                                   d.district= 'District ' + d.district;
+                               }
+                               else{
+                                   d.district = 'N.A';
+                               }
+                          }
+                          else{
+                               d.district = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('state_name')){
+                               d.state_name = d.state_name;
+                           }
+                          else{
+                               d.state_name = 'N.A';
+                           }
+                      });
+                      $scope.resultList = data.results;
+                      //showData(data);
+                      //alert(Object.keys(data.results).length);
+                  }).error(function(data){
+                      alert("error");
+                  });
+                  
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+                  $scope.clearFilter = function() {
+                      console.log("clear");
+                      alert("clear");
+                      $scope.query = {};
+                  };
+            }
+
+            function OtherController($scope) {
+              $scope.pageChangeHandler = function(num) {
+                 console.log('going to page ' + num);
+              };
+            }
+           
+            function MyController1($scope,$http) {
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  //var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=legislators&byTab=house&chamber=house';
+                  var url = 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=house&chamber=house';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('party')){
+                               if(d.party == "R"){
+                                   d.party = 'r.png';
+                               }
+                               else if(d.party == "D"){
+                                   d.party = 'd.png';
+                               }
+                               else{
+                                   d.party = 'N.A';
+                               }
+                          }
+                          else{
+                              d.party = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('district')){
+                               if(d.district != null){
+                                   d.district= 'District ' + d.district;
+                               }
+                               else{
+                                   d.district = 'N.A';
+                               }
+                          }
+                          else{
+                               d.district = 'N.A';
+                          }
+
+                           if(d.hasOwnProperty('state_name')){
+                               d.state_name = d.state_name;
+                           }
+                           else{
+                               d.state_name = 'N.A';
+                           }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+            
+            function MyController2($scope,$http) {
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  //var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=legislators&byTab=senate&chamber=senate';
+                  var url = 'http://cs-server.usc.edu:24387/infoprecess.php?datab=legislators&byTab=senate&chamber=senate';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('party')){
+                               if(d.party == "R"){
+                                   d.party = 'r.png';
+                               }
+                               else if(d.party == "D"){
+                                   d.party = 'd.png';
+                               }
+                               else{
+                                   d.party = 'N.A';
+                               }
+                          }
+                          else{
+                              d.party = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('district')){
+                               if(d.district != null){
+                                   d.district= 'District ' + d.district;
+                               }
+                               else{
+                                   d.district = 'N.A';
+                               }
+                          }
+                          else{
+                               d.district = 'N.A';
+                          }
+
+                           if(d.hasOwnProperty('state_name')){
+                               d.state_name = d.state_name;
+                           }
+                           else{
+                               d.state_name = 'N.A';
+                           }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+           
+            function MyBillController($scope,$http){
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  //var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=bills&byTab=active';
+                  var url = 'http://cs-server.usc.edu:24387/infoprecess.php?datab=bills&byTab=active';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('bill_type')){
+                               if(d.bill_type != null){
+                                   d.bill_type= d.bill_type;
+                               }
+                               else{
+                                   d.bill_type = 'N.A';
+                               }
+                          }
+                          else{
+                              d.bill_type = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('official_title')){
+                               if(d.official_title != null){
+                                   d.official_title= d.official_title;
+                               }
+                               else{
+                                   d.official_title = 'N.A';
+                               }
+                          }
+                          else{
+                              d.official_title = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('introduced_on')){
+                               if(d.introduced_on != null){
+                                   d.introduced_on= d.introduced_on;
+                               }
+                               else{
+                                   d.introduced_on = 'N.A';
+                               }
+                          }
+                          else{
+                              d.introduced_on = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('sponsor')){
+                               if(d.sponsor != null){
+                                   d.sponsor= d.sponsor.title + '. ' + d.sponsor.last_name + ', ' + d.sponsor.first_name;
+                               }
+                               else{
+                                   d.sponsor = 'N.A';
+                               }
+                          }
+                          else{
+                               d.sponsor = 'N.A';
+                          }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+            
+            function MyBillController1($scope,$http){
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=bills&byTab=new';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('bill_type')){
+                               if(d.bill_type != null){
+                                   d.bill_type= d.bill_type;
+                               }
+                               else{
+                                   d.bill_type = 'N.A';
+                               }
+                          }
+                          else{
+                              d.bill_type = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('official_title')){
+                               if(d.official_title != null){
+                                   d.official_title= d.official_title;
+                               }
+                               else{
+                                   d.official_title = 'N.A';
+                               }
+                          }
+                          else{
+                              d.official_title = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('introduced_on')){
+                               if(d.introduced_on != null){
+                                   d.introduced_on= d.introduced_on;
+                               }
+                               else{
+                                   d.introduced_on = 'N.A';
+                               }
+                          }
+                          else{
+                              d.introduced_on = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('sponsor')){
+                               if(d.sponsor != null){
+                                   d.sponsor= d.sponsor.title + '. ' + d.sponsor.last_name + ', ' + d.sponsor.first_name;
+                               }
+                               else{
+                                   d.sponsor = 'N.A';
+                               }
+                          }
+                          else{
+                               d.sponsor = 'N.A';
+                          }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+            
+            function MyCommitteeController($scope,$http){
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=committees&byTab=house';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('committee_id')){
+                               if(d.committee_id != null){
+                                   d.committee_id= d.committee_id;
+                               }
+                               else{
+                                   d.committee_id = 'N.A';
+                               }
+                          }
+                          else{
+                              d.committee_id = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('name')){
+                               if(d.name != null){
+                                   d.name= d.name;
+                               }
+                               else{
+                                   d.name = 'N.A';
+                               }
+                          }
+                          else{
+                              d.name = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('parent_committee')){
+                               if(d.parent_committee != null){
+                                   d.parent_committee= d.parent_committee;
+                               }
+                               else{
+                                   d.parent_committee = 'N.A';
+                               }
+                          }
+                          else{
+                              d.parent_committee = 'N.A';
+                          }
+
+                          if(d.hasOwnProperty('contact')){
+                               if(d.contact != null){
+                                   d.contact= d.contact;
+                               }
+                               else{
+                                   d.contact = 'N.A';
+                               }
+                          }
+                          else{
+                               d.contact = 'N.A';
+                          }
+                          if(d.hasOwnProperty('office')){
+                               if(d.office != null){
+                                   d.office= d.office;
+                               }
+                               else{
+                                   d.coffice = 'N.A';
+                               }
+                          }
+                          else{
+                               d.office = 'N.A';
+                          }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+           
+            function MyCommitteeController1($scope,$http){
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=committees&byTab=senate';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('committee_id')){
+                               if(d.committee_id != null){
+                                   d.committee_id= d.committee_id;
+                               }
+                               else{
+                                   d.committee_id = 'N.A';
+                               }
+                          }
+                          else{
+                              d.committee_id = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('name')){
+                               if(d.name != null){
+                                   d.name= d.name;
+                               }
+                               else{
+                                   d.name = 'N.A';
+                               }
+                          }
+                          else{
+                              d.name = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('parent_committee')){
+                               if(d.parent_committee != null){
+                                   d.parent_committee= d.parent_committee;
+                               }
+                               else{
+                                   d.parent_committee = 'N.A';
+                               }
+                          }
+                          else{
+                              d.parent_committee = 'N.A';
+                          }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+            
+            function MyCommitteeController2($scope,$http){
+                  $scope.currentPage = 1;
+                  $scope.pageSize = 10;
+                  var url = 'http://app12016-pipienv.us-west-2.elasticbeanstalk.com/?datab=committees&byTab=joint';
+                  $http.get(url)
+                      .success(function(data){
+                      $scope.total = Object.keys(data.results).length;
+                      $.each(data.results,function(i,d){
+                          if(d.hasOwnProperty('committee_id')){
+                               if(d.committee_id != null){
+                                   d.committee_id= d.committee_id;
+                               }
+                               else{
+                                   d.committee_id = 'N.A';
+                               }
+                          }
+                          else{
+                              d.committee_id = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('name')){
+                               if(d.name != null){
+                                   d.name= d.name;
+                               }
+                               else{
+                                   d.name = 'N.A';
+                               }
+                          }
+                          else{
+                              d.name = 'N.A';
+                          }
+                          
+                          if(d.hasOwnProperty('chamber')){
+                               if(d.chamber == "senate"){
+                                   d.chamber= 'Senate';
+                                   d.chamberimg = 's.svg';
+                               }
+                               else if(d.chamber == "house"){
+                                   d.chamber= 'House';
+                                   d.chamberimg = 'h.png';
+                               }
+                               else{
+                                   d.chamber = 'N.A';
+                               }
+                          }
+                          else{
+                                   d.chamber = 'N.A';
+                          }
+                      });
+                      $scope.resultList = data.results;
+                  }).error(function(data){
+                      alert("error");
+                  });
+
+                  $scope.pageChangeHandler = function(num) {
+                      console.log('meals page changed to ' + num);
+                  };
+            }
+           
+            function OtherController($scope) {
+              $scope.pageChangeHandler = function(num) {
+                 console.log('going to page ' + num);
+              };
+            }
+            function OtherController1($scope){
+               $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherController2($scope){
+               $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherBillController($scope){
+                $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherBillController1($scope){
+                $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherCommitteeController($scope){
+                $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherCommitteeController1($scope){
+                $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            function OtherCommitteeController2($scope){
+                $scope.pageChangeHandler = function(num) {
+                     console.log('going to page ' + num);
+               };
+            }
+            myApp.controller('MyController', MyController);
+            myApp.controller('OtherController', OtherController);
+            myApp.controller('MyController1', MyController1);
+            myApp.controller('OtherController1', OtherController1);
+            myApp.controller('MyController2', MyController2);
+            myApp.controller('OtherController2', OtherController2);
+            myApp.controller('MyBillController', MyBillController);
+            myApp.controller('OtherBillController', OtherBillController);
+            myApp.controller('MyBillController1', MyBillController1);
+            myApp.controller('OtherBillController1', OtherBillController1);
+            myApp.controller('MyCommitteeController', MyCommitteeController);
+            myApp.controller('OtherCommitteeController', OtherCommitteeController);
+            myApp.controller('MyCommitteeController1', MyCommitteeController1);
+            myApp.controller('OtherCommitteeController1', OtherCommitteeController1);
+            myApp.controller('MyCommitteeController2', MyCommitteeController2);
+            myApp.controller('OtherCommitteeController2', OtherCommitteeController2);
+       </script>
+   </body>
+</html>

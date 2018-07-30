@@ -1,0 +1,37 @@
+<!DOCHTML>
+<html>
+    <head>
+    </head>
+    <body>
+        <p id="test">1</p>
+        <button onclick="jt()">JsonTest</button>
+        <script>
+            var jsonObj = [];
+            Obj1 = [];
+            Obj2 = [];
+            item = {};
+            item["title"] = "test1";
+            item["value"] = "1";
+            Obj1.push(item);
+            item1 = {};
+            item1["title"] = "test2";
+            item1["value"] = "2";
+            Obj2.push(item1);
+            i1 = {};
+            i1["item1"] = Obj1;
+            i1["item2"] = Obj2;
+            jsonObj.push(i1);
+            jsonString = JSON.stringify(jsonObj);
+            function jt(){
+                //delete jsonObj[0];
+                //delete jsonObj[0].item1;
+                jsonString = JSON.stringify(jsonObj);
+                obj=JSON.parse(jsonString);
+                delete obj[0].item1;
+                jsonString1 = JSON.stringify(obj);
+                obj11=JSON.parse(jsonString1);
+                document.getElementById("test").innerHTML = obj11[0].item2[0].title;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <link data-require="bootstrap-css@3.1.1" data-semver="3.1.1" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script data-require="angular.js@1.3.0" data-semver="1.3.0" src="https://code.angularjs.org/1.3.0/angular.js"></script>
+  <script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+  <script data-require="bootstrap@3.3.7" data-semver="3.3.7" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></script>
+  <script src="script.js"></script>
+  <style type="text/css">
+      /* Styles go here */
+
+.my-controller {
+  border: 1px solid #fcc;
+  padding: 5px;
+  margin: 3px;
+}
+.my-controller small {
+  color: #c99;
+}
+.other-controller {
+  border: 1px solid #ccf;
+  padding: 5px;
+  margin: 3px;
+}
+.other-controller small {
+  color: #99c;
+}
+.third-controller {
+  border: 1px solid #cfc;
+  padding: 5px;
+  margin: 3px;
+}
+.third-controller small {
+  color: #9c9;
+}
+  </style>
+  <script src="dirPagination.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div ng-controller="MyController" class="my-controller">
+          <h1>Tasty Paginated Menu</h1>
+
+          <small>this is in "MyController"</small>
+            <div class="row">
+            <div class="col-xs-4">
+              <h3>Meals Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search1" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+
+                <table>
+                    <tr dir-paginate="x in resultList | filter:q | itemsPerPage:10" current-page="currentPage">
+                        <td>
+                            <script>
+                                temp = {{x.party}};
+                            if(temp != 'N.A'){
+                                document.write('<img style="height:23px" src={{x.party}}>');
+                                alert("!=NA");
+                            }
+                            </script>
+                        </td>
+                        <td>{{x.last_name+", "+x.first_name}}</td>
+                        <td>
+                            <script>
+                                document.write('{{x.chamber}}');
+                            </script>
+                        </td>
+                        <td>{{x.district}}</td>
+                        <td>{{x.state_name}}</td>
+                        <td style="text-align:right">
+                            <button type="button" class="btn btn-primary" style="font-size: 0.8em">View Details</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="OtherController" class="other-controller">
+          <small>this is in "OtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)">
+              <ul class="pagination" ng-if="1 < pages.length || !autoHide">
+                <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+                    <a href="" ng-click="setCurrent(1)">&laquo;</a>
+                </li>
+                <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+                    <a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+                </li>
+                <li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+                    <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+                </li>
+
+                <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+                    <a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+                </li>
+                <li ng-if="boundaryLinks"  ng-class="{ disabled : pagination.current == pagination.last }">
+                    <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+                </li>
+             </ul>
+          </dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+    
+<script></script>
+</body>
+
+</html>
